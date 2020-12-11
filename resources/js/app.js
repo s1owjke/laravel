@@ -11,7 +11,7 @@ render(
     <React.StrictMode>
         <App
             initialPage={JSON.parse(appElement.dataset.page)}
-            resolveComponent={name => require(`./Pages/${name}.js`).default}
+            resolveComponent={name => require(`./Pages/${name}`).default}
         />
     </React.StrictMode>,
     appElement
