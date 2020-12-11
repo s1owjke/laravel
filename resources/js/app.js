@@ -1,26 +1,18 @@
 require('./bootstrap');
-
 require('moment');
 
-import Vue from 'vue';
+import React from 'react';
+import { render } from 'react-dom';
+import { App } from '@inertiajs/inertia-react';
 
-import { InertiaApp } from '@inertiajs/inertia-vue';
-import { InertiaForm } from 'laravel-jetstream';
-import PortalVue from 'portal-vue';
+const appElement = document.getElementById('app');
 
-Vue.mixin({ methods: { route } });
-Vue.use(InertiaApp);
-Vue.use(InertiaForm);
-Vue.use(PortalVue);
-
-const app = document.getElementById('app');
-
-new Vue({
-    render: (h) =>
-        h(InertiaApp, {
-            props: {
-                initialPage: JSON.parse(app.dataset.page),
-                resolveComponent: (name) => require(`./Pages/${name}`).default,
-            },
-        }),
-}).$mount(app);
+render(
+    <React.StrictMode>
+        <App
+            initialPage={JSON.parse(appElement.dataset.page)}
+            resolveComponent={name => require(`./Pages/${name}.js`).default}
+        />
+    </React.StrictMode>,
+    appElement
+);
